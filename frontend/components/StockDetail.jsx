@@ -17,42 +17,33 @@ export default function StockDetail({ symbol, market }) {
   }
 
   return (
-    <>
-      <div className="flex justify-center gap-12">
-        <div className="w-3/4 bg-amber-600 rounded-xl"></div>
-        <div className="border border-gray-100 rounded-lg p-6 shadow-xl">
-          <div className="grid grid-cols-2 gap-5">
-            <div>
-              <p className="text-gray-500">Giá tham chiếu</p>
-              <p className="font-medium">{formatNumber(data["RefPrice"])}</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Giá trần</p>
-              <p className="font-medium">
-                {formatNumber(data["CeilingPrice"])}
-              </p>
-            </div>
-            <div>
-              <p className="text-gray-500">Giá sàn</p>
-              <p className="font-medium">{formatNumber(data["FloorPrice"])}</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Giá mở cửa</p>
-              <p className="font-medium">{formatNumber(data["OpenPrice"])}</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Giá cao nhất</p>
-              <p className="font-medium">
-                {formatNumber(data["HighestPrice"])}
-              </p>
-            </div>
-            <div>
-              <p className="text-gray-500">Giá thấp nhất</p>
-              <p className="font-medium">{formatNumber(data["LowestPrice"])}</p>
-            </div>
-          </div>
+    <div className="border border-gray-100 rounded-lg p-6 shadow-xl">
+      <div className="grid grid-cols-2 gap-5">
+        <div>
+          <p className="text-gray-500">Giá tham chiếu</p>
+          <p className="font-medium">{formatNumber(data["RefPrice"])}</p>
+        </div>
+        <div>
+          <p className="text-gray-500">Giá trần</p>
+          <p className="font-medium">{formatNumber(data["CeilingPrice"])}</p>
+        </div>
+        <div>
+          <p className="text-gray-500">Giá sàn</p>
+          <p className="font-medium">{formatNumber(data["FloorPrice"])}</p>
+        </div>
+        <div>
+          <p className="text-gray-500">Giá mở cửa</p>
+          <p className="font-medium">{formatNumber(data["OpenPrice"])}</p>
+        </div>
+        <div>
+          <p className="text-gray-500">Giá cao nhất</p>
+          <p className="font-medium">{formatNumber(data["HighestPrice"])}</p>
+        </div>
+        <div>
+          <p className="text-gray-500">Giá thấp nhất</p>
+          <p className="font-medium">{formatNumber(data["LowestPrice"])}</p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

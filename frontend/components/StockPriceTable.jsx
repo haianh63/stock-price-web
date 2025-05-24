@@ -3,7 +3,7 @@ import { useState } from "react";
 import { clsx } from "clsx";
 import { LuArrowUp, LuArrowDown } from "react-icons/lu";
 import Pagination from "./Pagination";
-
+import { useNavigate } from "react-router";
 export default function StockPriceTable({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
   const chunks = splitArrayIntoChunks(data, 4);
@@ -68,6 +68,7 @@ export default function StockPriceTable({ data }) {
 }
 
 function StockPriceTableRow({ item }) {
+  const navigate = useNavigate();
   const symbol = item["Content"]["Symbol"];
   const lastPrice = item["Content"]["LastPrice"];
   const change = item["Content"]["Change"];
@@ -76,10 +77,12 @@ function StockPriceTableRow({ item }) {
   const ceiling = item["Content"]["Ceiling"];
   const floor = item["Content"]["Floor"];
   const exchange = item["Content"]["Exchange"];
+
   return (
     <tr
       key={symbol}
-      className="transition-colors hover:bg-slate-50 dark:hover:bg-slate-900/50 text-center"
+      className="transition-colors hover:bg-slate-50 hover:cursor-pointer dark:hover:bg-slate-900/50 text-center"
+      onClick={() => navigate(`/details/${symbol}/${exchange}`)}
     >
       <td className="px-6 py-4 font-bold text-slate-900 dark:text-slate-100">
         {symbol}

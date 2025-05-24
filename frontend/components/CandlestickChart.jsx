@@ -50,6 +50,7 @@ export default function CandlestickChart({ symbol }) {
         backgroundColor: "#777",
       },
     },
+
     brush: {
       xAxisIndex: "all",
       brushLink: "all",

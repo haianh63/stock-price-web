@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import StockPriceTable from "../components/StockPriceTable";
 import { generateFakeData } from "../utils/utils";
-import LineChart from "../components/LineChart";
-import StockDetail from "../components/StockDetail";
-import CandlestickChart from "../components/CandlestickChart";
+import { Routes, Route, Link } from "react-router";
+import HomePage from "../pages/HomePage";
+import StockDetailPage from "../pages/StockDetailPage";
+
 function App() {
   const [socket, setSocket] = useState(null);
   const [data, setData] = useState(generateFakeData(30));
@@ -17,7 +17,6 @@ function App() {
 
     ws.onmessage = (evt) => {
       const data = JSON.parse(evt.data);
-      console.log(data);
       setData(data);
     };
 
@@ -39,13 +38,18 @@ function App() {
   };
 
   return (
-    <div className="">
-      <button onClick={receiveData}>Receive Data</button>
-      <StockPriceTable data={data} />
-      <LineChart />
-      <StockDetail symbol="fpt" market="hose" />
-      <CandlestickChart symbol="FPT" />
-    </div>
+    <Routes>
+      <Route
+        index
+        element={<HomePage onReceiveData={receiveData} data={data} />}
+      />
+      <Route path="details">
+        <Route path=":symbol">
+          <Route path=":market" element={<StockDetailPage />} />
+        </Route>
+      </Route>
+      <Route path="*" element={<h1> 404 NOT FOUND!!! </h1>} />
+    </Routes>
   );
 }
 
