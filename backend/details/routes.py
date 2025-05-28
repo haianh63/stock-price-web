@@ -1,17 +1,26 @@
 from flask import Blueprint, request, jsonify
 from utils.utils import get_n_nearest_workdays
 from stock_price_api.req_res import md_get_stock_price, md_get_securities_details, md_get_intraday_OHLC
-
+from stock_price_api.redis_config import REDIS_HOST, REDIS_PORT
+import redis
+import json
+redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
 details = Blueprint('details', __name__)
 
 @details.route("", methods=['POST'])
 def getStockDetails():
+    key = "stock-details"
     data = request.json
     symbol = data.get("symbol")
     market = data.get("market")
     date = get_n_nearest_workdays()[0]
 
-    response = md_get_stock_price(symbol, market, date, date)["data"]
+    if redis_client.exists(key):
+        response = json.loads(redis_client.get(key))
+    else:
+        response = md_get_stock_price(symbol, market, date, date)["data"]
+        redis_client.set(key, json.dumps(response))
+        
     data = list(filter(lambda item: symbol.lower() == item["Symbol"].lower(), response))
     company_response = md_get_securities_details(symbol, market)["data"]
 
