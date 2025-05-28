@@ -76,6 +76,12 @@ export default function LineChart() {
       left: "center",
       text: "VNINDEX",
     },
+    grid: {
+      left: "2%", // Reduced padding on the left
+      right: "2%", // Reduced padding on the right
+      bottom: "2%", // Reduced padding on the bottom
+      containLabel: true, // Ensures labels fit within the grid
+    },
     xAxis: {
       type: "time",
       boundaryGap: false,

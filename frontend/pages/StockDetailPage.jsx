@@ -10,7 +10,9 @@ export default function StockDetailPage() {
         symbol={symbol.toLowerCase()}
         market={market.toLowerCase()}
       />
-      <CandlestickChart symbol={symbol.toUpperCase()} />
+      <div className="rounded-lg border border-slate-200 shadow-xl mx-10 my-5 py-3">
+        <CandlestickChart symbol={symbol.toUpperCase()} />
+      </div>
     </>
   );
 }

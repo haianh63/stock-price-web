@@ -75,14 +75,17 @@ export default function CandlestickChart({ symbol }) {
     },
     grid: [
       {
-        left: "10%",
-        right: "8%",
-        height: "50%",
+        left: "5%",
+        right: "5%",
+        top: "10%",
+        bottom: "2%",
+        height: "60%",
       },
       {
-        left: "10%",
-        right: "8%",
-        top: "63%",
+        left: "5%", // Increased left padding
+        right: "5%", // Increased right padding
+        top: "75%", // Adjusted top to accommodate the first grid
+        bottom: "5%", // Added bottom padding
         height: "16%",
       },
     ],

@@ -1,48 +1,57 @@
 import { useState, useEffect } from "react";
 import { generateFakeData } from "../utils/utils";
-import { Routes, Route, Link } from "react-router";
+import { Routes, Route } from "react-router";
 import HomePage from "../pages/HomePage";
 import StockDetailPage from "../pages/StockDetailPage";
-
+import { socket } from "./socket";
 function App() {
-  const [socket, setSocket] = useState(null);
   const [data, setData] = useState(generateFakeData(30));
-
   useEffect(() => {
-    const ws = new WebSocket("ws://127.0.0.1:5000/data");
+    function onConnect() {
+      console.log("Connected to server!!!");
+    }
 
-    ws.onopen = () => {
-      console.log("Websocket is connected!!!");
-    };
-
-    ws.onmessage = (evt) => {
-      const data = JSON.parse(evt.data);
+    function onConnectUpdate(data) {
       setData(data);
-    };
+    }
+    function onDisconnect() {
+      console.log("Disconnected to server!!!");
+    }
 
-    ws.onclose = () => {
-      console.log("Websocket is closed!!!");
-    };
+    function onReceiveUpdates(data) {
+      // console.log(data);
+      const symbol = data["Content"]["Symbol"];
+      setData((prevData) => {
+        const index = prevData.findIndex(
+          (item) => item["Content"]["Symbol"] === symbol
+        );
 
-    setSocket(ws);
+        if (index === -1) {
+          return [...prevData, data];
+        }
+
+        const updatedData = [...prevData];
+        updatedData[index] = data;
+        return updatedData;
+      });
+    }
+
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
+    socket.on("stock_update", onReceiveUpdates);
+    socket.on("connect_update", onConnectUpdate);
 
     return () => {
-      ws.close();
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
+      socket.off("stock_update", onReceiveUpdates);
+      socket.off("connect_update", onConnectUpdate);
     };
   }, []);
 
-  const receiveData = () => {
-    if (socket) {
-      socket.send("receive-data");
-    }
-  };
-
   return (
     <Routes>
-      <Route
-        index
-        element={<HomePage onReceiveData={receiveData} data={data} />}
-      />
+      <Route index element={<HomePage data={data} />} />
       <Route path="details">
         <Route path=":symbol">
           <Route path=":market" element={<StockDetailPage />} />
