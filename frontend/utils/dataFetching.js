@@ -55,3 +55,17 @@ export const fetchStockDetail = async (symbol, market) => {
   });
   return result.json();
 };
+
+export const fetchPredictions = async (symbol, market) => {
+  const result = await fetch(`${BASE_URL}/predictions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      symbol: symbol,
+      market: market,
+    }),
+  });
+  return result.json();
+};

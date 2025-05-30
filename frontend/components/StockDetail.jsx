@@ -29,27 +29,27 @@ export default function StockDetail({ symbol, market }) {
 
       <div className="grid grid-cols-3 text-sm w-1/2 gap-5 mx-5">
         <div>
-          <p className="text-gray-400 font-semibold">Giá tham chiếu</p>
+          <p className="text-[#61677A] font-semibold">Giá tham chiếu</p>
           <p className="font-bold">{formatNumber(data["RefPrice"])}</p>
         </div>
         <div>
-          <p className="text-gray-400 font-semibold">Giá trần</p>
+          <p className="text-[#61677A] font-semibold">Giá trần</p>
           <p className="font-bold">{formatNumber(data["CeilingPrice"])}</p>
         </div>
         <div>
-          <p className="text-gray-400 font-semibold">Giá sàn</p>
+          <p className="text-[#61677A] font-semibold">Giá sàn</p>
           <p className="font-bold">{formatNumber(data["FloorPrice"])}</p>
         </div>
         <div>
-          <p className="text-gray-400 font-semibold">Giá mở cửa</p>
+          <p className="text-[#61677A] font-semibold">Giá mở cửa</p>
           <p className="font-bold">{formatNumber(data["OpenPrice"])}</p>
         </div>
         <div>
-          <p className="text-gray-400 font-semibold">Giá cao nhất</p>
+          <p className="text-[#61677A] font-semibold">Giá cao nhất</p>
           <p className="font-bold">{formatNumber(data["HighestPrice"])}</p>
         </div>
         <div>
-          <p className="text-gray-400 font-semibold">Giá thấp nhất</p>
+          <p className="text-[#61677A] font-semibold">Giá thấp nhất</p>
           <p className="font-bold">{formatNumber(data["LowestPrice"])}</p>
         </div>
       </div>

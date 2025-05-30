@@ -5,6 +5,7 @@ import { IoIosSearch } from "react-icons/io";
 import Pagination from "../components/Pagination";
 import Input from "../components/Input";
 import { splitArrayIntoChunks } from "../utils/utils";
+import Predictions from "../components/Predictions";
 
 export default function HomePage({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -63,6 +64,8 @@ export default function HomePage({ data }) {
       <div className="rounded-lg border border-slate-200 shadow-xl mx-10 my-5 py-3">
         <LineChart />
       </div>
+      <p>Predictions</p>
+      <Predictions />
     </>
   );
 }

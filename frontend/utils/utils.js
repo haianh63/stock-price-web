@@ -91,3 +91,21 @@ export const generateFakeData = (n) => {
 
   return data;
 };
+
+export const getWeekdays = (n) => {
+  const result = [];
+  let currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + 1);
+  while (result.length < n) {
+    const dayOfWeek = currentDate.getDay();
+    if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+      const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+      const day = String(currentDate.getDate()).padStart(2, "0");
+      const year = currentDate.getFullYear();
+      result.push(`${day}/${month}/${year}`);
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return result;
+};
