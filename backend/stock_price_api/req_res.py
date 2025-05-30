@@ -5,7 +5,7 @@ from ssi_fc_data import model
 			
 client = MarketDataClient(config)
 def md_get_stock_price(symbol, market, fromDate, toDate):
-	return client.daily_stock_price(config, model.daily_stock_price (symbol, fromDate, toDate, 1, 10, market))
+	return client.daily_stock_price(config, model.daily_stock_price (symbol, fromDate, toDate, 1, 100, market))
 
 def md_get_securities_details(symbol, market):
     req = model.securities_details(market, symbol, 1, 100)

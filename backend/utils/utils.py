@@ -17,6 +17,18 @@ def get_n_nearest_workdays(reference_date=None, n=1):
         count += 1
     return workdays
 
+def generate_intervals(n):
+    current_date = datetime.now()
+    intervals = []
+    
+    for i in range(n):
+        end_date = current_date - timedelta(days=i*30)
+        start_date = end_date - timedelta(days=29)
+        interval = [start_date.strftime('%d/%m/%Y'), end_date.strftime('%d/%m/%Y')]
+        intervals.insert(0, interval)
+    
+    return intervals
+
 def ratioChange(start, end):
     ratio = (end - start) / start * 100
     return round(ratio, 2)
