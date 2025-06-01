@@ -1,5 +1,5 @@
-from utils.utils import generate_intervals
-from stock_price_api.req_res import md_get_stock_price
+from utils.utils import convertTradingTimeToString, generate_intervals, get_n_nearest_workdays
+from stock_price_api.req_res import md_get_stock_price, md_get_daily_index, md_get_intraday_OHLC
 import json
 import redis
 from stock_price_api.redis_config import REDIS_HOST, REDIS_PORT
@@ -113,3 +113,20 @@ def predictListSymbol(symbols, markets):
                 print("there is an error")
 
         time.sleep(1)
+    
+    key = "vnindex-month"
+    data = md_get_daily_index(interval[0], interval[1])["data"]
+    # ratioChange = md_get_daily_index(today, today)["data"][0]["RatioChange"]
+    parsed_data = [[item["TradingDate"], item["IndexValue"]] for item in data]
+    redis_client.set(key, json.dumps(parsed_data))
+    time.sleep(1)
+
+    key = "vnindex-week"
+    dates = get_n_nearest_workdays(n=7)
+    start = dates[len(dates) - 1]
+    end = dates[0]
+    data = md_get_intraday_OHLC('VNINDEX', start, end)["data"]
+    parsed_data = [[convertTradingTimeToString(item["TradingDate"], item["Time"]), item["Value"]] for item in data]
+    redis_client.set(key, json.dumps(parsed_data))
+
+    print("Fetch in background complete")
