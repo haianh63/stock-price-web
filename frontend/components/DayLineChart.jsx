@@ -1,18 +1,17 @@
 import ReactECharts from "echarts-for-react";
-import { useEffect, useState } from "react";
 import * as echarts from "echarts";
 import { formatNumber } from "../utils/utils";
 import { fetchVNIndex } from "../utils/dataFetching";
 import { useQuery } from "@tanstack/react-query";
 
-export default function LineChart() {
+export default function DayLineChart() {
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ["vnindex"],
-    queryFn: fetchVNIndex,
+    queryKey: ["vnindex", "day"],
+    queryFn: () => fetchVNIndex("day"),
   });
 
   if (isPending) {
-    return <span>Loading...</span>;
+    return <div className="bg-white w-[1174px] h-[600px]"></div>;
   }
 
   if (isError) {

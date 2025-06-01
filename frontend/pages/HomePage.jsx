@@ -1,11 +1,12 @@
 import StockPriceTable from "../components/StockPriceTable";
-import LineChart from "../components/LineChart";
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import Pagination from "../components/Pagination";
 import Input from "../components/Input";
 import { splitArrayIntoChunks } from "../utils/utils";
 import Predictions from "../components/Predictions";
+import VNIndex from "../components/VNIndex";
+import Chat from "../components/Chat";
 
 export default function HomePage({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,11 +62,15 @@ export default function HomePage({ data }) {
           </div>
         </div>
       </div>
-      <div className="rounded-lg border border-slate-200 shadow-xl mx-10 my-5 py-3">
-        <LineChart />
+
+      <VNIndex />
+
+      <p className="my-6 mx-10 text-xl font-bold">Stock Price Forecasting</p>
+      <div className="mx-10">
+        <Predictions />
       </div>
-      <p>Predictions</p>
-      <Predictions />
+
+      <Chat />
     </>
   );
 }

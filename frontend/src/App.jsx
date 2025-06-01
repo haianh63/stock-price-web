@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router";
 import HomePage from "../pages/HomePage";
 import StockDetailPage from "../pages/StockDetailPage";
 import { socket } from "./socket";
+import Layout from "../components/Layout";
 function App() {
   const [data, setData] = useState(generateFakeData(30));
   useEffect(() => {
@@ -51,12 +52,15 @@ function App() {
 
   return (
     <Routes>
-      <Route index element={<HomePage data={data} />} />
-      <Route path="details">
-        <Route path=":symbol">
-          <Route path=":market" element={<StockDetailPage />} />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage data={data} />} />
+        <Route path="details">
+          <Route path=":symbol">
+            <Route path=":market" element={<StockDetailPage />} />
+          </Route>
         </Route>
       </Route>
+
       <Route path="*" element={<h1> 404 NOT FOUND!!! </h1>} />
     </Routes>
   );

@@ -37,8 +37,16 @@ export const splitIntradayData = (rawData) => {
   };
 };
 
-export const fetchVNIndex = async () => {
-  const result = await fetch(`${BASE_URL}/vnindex`);
+export const fetchVNIndex = async (timeRange) => {
+  if (timeRange === "day") {
+    const result = await fetch(`${BASE_URL}/vnindex`);
+    return result.json();
+  }
+  if (timeRange === "week") {
+    const result = await fetch(`${BASE_URL}/vnindex/week`);
+    return result.json();
+  }
+  const result = await fetch(`${BASE_URL}/vnindex/month`);
   return result.json();
 };
 
@@ -67,5 +75,17 @@ export const fetchPredictions = async (symbol, market) => {
       market: market,
     }),
   });
+  return result.json();
+};
+
+export const postQuestion = async (question) => {
+  const result = await fetch(`${BASE_URL}/chatbot`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ question: question }),
+  });
+
   return result.json();
 };
