@@ -10,7 +10,7 @@ export default function MonthLineChart() {
   });
 
   if (isPending) {
-    return <div className="bg-white w-[1174px] h-[600px]"></div>;
+    return <div className="bg-white w-[1174px] h-[400px] md:h-[600px]"></div>;
   }
 
   if (isError) {

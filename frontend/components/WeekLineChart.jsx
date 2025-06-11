@@ -26,7 +26,7 @@ export default function WeekLineChart() {
   });
 
   if (isPending) {
-    return <div className="bg-white w-full h-[400px]"></div>;
+    return <div className="bg-white w-full h-[400px] md:h-[600px]"></div>;
   }
 
   if (isError) {

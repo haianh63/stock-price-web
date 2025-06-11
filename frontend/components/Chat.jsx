@@ -1,8 +1,33 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import { MessageCircle, X, Send } from "lucide-react";
 import { LuMessageCircle, LuX, LuSend } from "react-icons/lu";
 import { postQuestion } from "../utils/dataFetching";
+
+const TypingIndicator = () => {
+  return (
+    <div className="flex justify-start">
+      <div className="max-w-xs px-4 py-2 bg-gray-100 text-gray-800 rounded-2xl rounded-bl-sm">
+        <div className="flex items-center space-x-1">
+          <div className="flex space-x-1">
+            <div
+              className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+              style={{ animationDelay: "0ms" }}
+            ></div>
+            <div
+              className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+              style={{ animationDelay: "150ms" }}
+            ></div>
+            <div
+              className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+              style={{ animationDelay: "300ms" }}
+            ></div>
+          </div>
+          <span className="text-xs text-gray-500 ml-2">AI is typing...</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function Chat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,11 +35,15 @@ export default function Chat() {
   const [messages, setMessages] = useState([
     { id: 1, text: "Hello! How can I help you today?", isBot: true },
   ]);
+  const [isTyping, setIsTyping] = useState(false);
 
   const mutation = useMutation({
     mutationFn: postQuestion,
+    onMutate: () => {
+      setIsTyping(true);
+    },
     onSuccess: (data) => {
-      // Invalidate hoặc cập nhật cache sau khi tạo thành công
+      setIsTyping(false);
       const botResponse = {
         id: messages.length + 1,
         text: data,
@@ -23,6 +52,7 @@ export default function Chat() {
       setMessages((prev) => [...prev, botResponse]);
     },
     onError: (error) => {
+      setIsTyping(false);
       alert("Có lỗi xảy ra: " + error.message);
     },
   });
@@ -32,20 +62,21 @@ export default function Chat() {
   };
 
   const sendMessage = () => {
-    if (message.trim()) {
-      mutation.mutate(message.trim());
-      const newMessage = {
-        id: messages.length + 1,
+    if (message.trim() && !mutation.isPending) {
+      const userMessage = {
+        id: Date.now(),
         text: message,
         isBot: false,
       };
-      setMessages([...messages, newMessage]);
+      setMessages((prev) => [...prev, userMessage]);
+      mutation.mutate(message.trim());
       setMessage("");
     }
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
       sendMessage();
     }
   };
@@ -100,9 +131,10 @@ export default function Chat() {
               </div>
             </div>
           ))}
+
+          {isTyping && <TypingIndicator />}
         </div>
 
-        {/* Input Area */}
         <div className="p-4 border-t border-gray-200">
           <div className="flex space-x-2">
             <input
@@ -111,13 +143,25 @@ export default function Chat() {
               onChange={(e) => setMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message..."
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+              disabled={mutation.isPending}
+              className={`flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none ${
+                mutation.isPending ? "bg-gray-100 cursor-not-allowed" : ""
+              }`}
             />
             <button
               onClick={sendMessage}
-              className="w-10 h-10 bg-blue-500 hover:cursor-pointer hover:bg-blue-600 text-white rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={mutation.isPending || !message.trim()}
+              className={`w-10 h-10 text-white rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                mutation.isPending || !message.trim()
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-500 hover:cursor-pointer hover:bg-blue-600"
+              }`}
             >
-              <LuSend className="w-4 h-4" />
+              {mutation.isPending ? (
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              ) : (
+                <LuSend className="w-4 h-4" />
+              )}
             </button>
           </div>
         </div>

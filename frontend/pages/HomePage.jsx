@@ -46,7 +46,7 @@ export default function HomePage({ data }) {
             icon={<IoIosSearch />}
             value={filter}
             onChange={handleFilterChange}
-            placeholder="Tìm kiếm mã cổ phiếu"
+            placeholder="Finding stock symbol"
           />
         </div>
         <div className="flex flex-col gap-5">

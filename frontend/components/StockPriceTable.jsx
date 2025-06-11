@@ -11,28 +11,28 @@ export default function StockPriceTable({ chunks, currentPage }) {
           <thead className="bg-slate-50 text-sm font-medium text-slate-500 dark:bg-slate-900 dark:text-slate-400 rounded-t-lg text-center">
             <tr>
               <th className="cursor-pointer px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
-                Mã cổ phiếu
+                Stock Symbol
               </th>
               <th className="cursor-pointer px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
-                Giá hiện tại
+                Current Price
               </th>
               <th className="cursor-pointer px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
-                Thay đổi
+                Change
               </th>
               <th className="cursor-pointer px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
-                % thay đổi
+                % Change
               </th>
               <th className="cursor-pointer px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
-                Khối lượng giao dịch
+                Trading Volume
               </th>
               <th className="cursor-pointer px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
-                Giá trần
+                Ceiling Price
               </th>
               <th className="cursor-pointer px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
-                Giá sàn
+                Floor Price
               </th>
               <th className="cursor-pointer px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
-                Sàn giao dịch
+                Stock Exchange
               </th>
             </tr>
           </thead>

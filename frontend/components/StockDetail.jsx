@@ -33,27 +33,27 @@ export default function StockDetail({ symbol, market }) {
       {/* Price Info Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 text-xs lg:text-sm w-full lg:w-1/2 gap-3 lg:gap-5 lg:mx-5">
         <div className="space-y-1">
-          <p className="text-[#61677A] font-semibold">Giá tham chiếu</p>
+          <p className="text-[#61677A] font-semibold">Reference Price</p>
           <p className="font-bold">{formatNumber(data.RefPrice)}</p>
         </div>
         <div className="space-y-1">
-          <p className="text-[#61677A] font-semibold">Giá trần</p>
+          <p className="text-[#61677A] font-semibold">Ceiling Price</p>
           <p className="font-bold">{formatNumber(data.CeilingPrice)}</p>
         </div>
         <div className="space-y-1">
-          <p className="text-[#61677A] font-semibold">Giá sàn</p>
+          <p className="text-[#61677A] font-semibold">Floor Price</p>
           <p className="font-bold">{formatNumber(data.FloorPrice)}</p>
         </div>
         <div className="space-y-1">
-          <p className="text-[#61677A] font-semibold">Giá mở cửa</p>
+          <p className="text-[#61677A] font-semibold">Open Price</p>
           <p className="font-bold">{formatNumber(data.OpenPrice)}</p>
         </div>
         <div className="space-y-1">
-          <p className="text-[#61677A] font-semibold">Giá cao nhất</p>
+          <p className="text-[#61677A] font-semibold">Highest Price</p>
           <p className="font-bold">{formatNumber(data.HighestPrice)}</p>
         </div>
         <div className="space-y-1">
-          <p className="text-[#61677A] font-semibold">Giá thấp nhất</p>
+          <p className="text-[#61677A] font-semibold">Lowest Price</p>
           <p className="font-bold">{formatNumber(data.LowestPrice)}</p>
         </div>
       </div>
