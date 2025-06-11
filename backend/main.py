@@ -6,7 +6,7 @@ from flask_cors import CORS
 from vnindex.routes import vnindex
 from details.routes import details
 from chatbot.routes import chatbot
-from stock_price_api.stream import get_data_stream
+from stock_price_api.stream import get_data_stream, simulate_get_data
 from stock_price_api.redis_config import REDIS_HOST, REDIS_PORT
 from predictions.routes import predictions, predictListSymbol
 import redis
@@ -47,7 +47,8 @@ if __name__ == "__main__":
     listen_market_thread = threading.Thread(target=listen_data_stream, daemon=True)
     listen_market_thread.start()
 
-    market_thread = threading.Thread(target=get_data_stream, daemon=True)
+    # market_thread = threading.Thread(target=get_data_stream, daemon=True)
+    market_thread = threading.Thread(target=simulate_get_data, daemon=True)
     market_thread.start()
 
     predictions_thread = threading.Thread(target=predictListSymbol, daemon=True, args=(symbols, markets))

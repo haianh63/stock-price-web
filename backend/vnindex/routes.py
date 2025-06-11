@@ -3,6 +3,7 @@ from utils.utils import get_n_nearest_workdays, convertTradingTimeToString, rati
 from stock_price_api.req_res import md_get_intraday_OHLC, md_get_daily_index
 from stock_price_api.redis_config import REDIS_HOST, REDIS_PORT
 import redis
+from datetime import datetime, timedelta
 import json
 
 vnindex = Blueprint('vnindex', __name__)
@@ -10,7 +11,7 @@ redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
 
 @vnindex.route("/")
 def getVNIndex():
-    today = get_n_nearest_workdays()[0]
+    today = get_n_nearest_workdays(reference_date=datetime.now() - timedelta(days=1))[0]
     data = md_get_intraday_OHLC('VNINDEX', today, today)["data"]
     # ratioChange = md_get_daily_index(today, today)["data"][0]["RatioChange"]
     parsed_data = [[convertTradingTimeToString(item["TradingDate"], item["Time"]), item["Value"]] for item in data]
