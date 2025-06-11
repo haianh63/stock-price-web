@@ -16,41 +16,45 @@ export default function StockDetail({ symbol, market }) {
   }
 
   return (
-    <div className="flex flex-row m-7 pb-7 border-b-slate-300 border-b-1">
-      <div className="flex flex-col border-r-1 border-r-slate-300 pr-10">
-        <p className="font-bold text-2xl">
+    <div className="flex flex-col lg:flex-row m-7 mx-10 pb-4 lg:pb-7 border-b border-slate-300 gap-4 lg:gap-0">
+      {/* Company Info Section */}
+      <div className="flex flex-col lg:border-r lg:border-slate-300 lg:pr-10 mb-4 lg:mb-0">
+        <p className="font-bold text-xl lg:text-2xl">
           {symbol.toUpperCase()}{" "}
-          <span className="font-semibold text-lg">
+          <span className="font-semibold text-base lg:text-lg">
             ({market.toUpperCase()})
           </span>
         </p>
-        <p className="font-medium">{data.EngCompanyName}</p>
+        <p className="font-medium text-sm lg:text-base">
+          {data.EngCompanyName}
+        </p>
       </div>
 
-      <div className="grid grid-cols-3 text-sm w-1/2 gap-5 mx-5">
-        <div>
+      {/* Price Info Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 text-xs lg:text-sm w-full lg:w-1/2 gap-3 lg:gap-5 lg:mx-5">
+        <div className="space-y-1">
           <p className="text-[#61677A] font-semibold">Giá tham chiếu</p>
-          <p className="font-bold">{formatNumber(data["RefPrice"])}</p>
+          <p className="font-bold">{formatNumber(data.RefPrice)}</p>
         </div>
-        <div>
+        <div className="space-y-1">
           <p className="text-[#61677A] font-semibold">Giá trần</p>
-          <p className="font-bold">{formatNumber(data["CeilingPrice"])}</p>
+          <p className="font-bold">{formatNumber(data.CeilingPrice)}</p>
         </div>
-        <div>
+        <div className="space-y-1">
           <p className="text-[#61677A] font-semibold">Giá sàn</p>
-          <p className="font-bold">{formatNumber(data["FloorPrice"])}</p>
+          <p className="font-bold">{formatNumber(data.FloorPrice)}</p>
         </div>
-        <div>
+        <div className="space-y-1">
           <p className="text-[#61677A] font-semibold">Giá mở cửa</p>
-          <p className="font-bold">{formatNumber(data["OpenPrice"])}</p>
+          <p className="font-bold">{formatNumber(data.OpenPrice)}</p>
         </div>
-        <div>
+        <div className="space-y-1">
           <p className="text-[#61677A] font-semibold">Giá cao nhất</p>
-          <p className="font-bold">{formatNumber(data["HighestPrice"])}</p>
+          <p className="font-bold">{formatNumber(data.HighestPrice)}</p>
         </div>
-        <div>
+        <div className="space-y-1">
           <p className="text-[#61677A] font-semibold">Giá thấp nhất</p>
-          <p className="font-bold">{formatNumber(data["LowestPrice"])}</p>
+          <p className="font-bold">{formatNumber(data.LowestPrice)}</p>
         </div>
       </div>
     </div>

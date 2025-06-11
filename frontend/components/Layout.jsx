@@ -10,7 +10,7 @@ function Layout() {
           <p className="font-bold text-2xl">STOXIE</p>
         </Link>
       </header>
-      <main>
+      <main className="w-full">
         <Outlet />
       </main>
     </div>

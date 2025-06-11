@@ -2,10 +2,11 @@ import { formatNumber } from "../utils/utils";
 import { clsx } from "clsx";
 import { LuArrowUp, LuArrowDown } from "react-icons/lu";
 import { useNavigate } from "react-router";
+
 export default function StockPriceTable({ chunks, currentPage }) {
   return (
     <>
-      <div className="overflow-hidden rounded-lg border border-slate-200 shadow-lg">
+      <div className="overflow-scroll rounded-lg border border-slate-200 shadow-lg min-w-full">
         <table className="w-full border-collapse table-auto">
           <thead className="bg-slate-50 text-sm font-medium text-slate-500 dark:bg-slate-900 dark:text-slate-400 rounded-t-lg text-center">
             <tr>

@@ -20,7 +20,7 @@ export default function Predictions() {
   const handleSelect = (e) => setCurrentPrediction(e.target.value);
   return (
     <>
-      <div className="w-full max-w-sm min-w-[200px]">
+      <div className="w-full max-w-[200px] min-w-[100px]">
         <div className="relative">
           <select
             onChange={handleSelect}
@@ -36,7 +36,7 @@ export default function Predictions() {
           <IoIosArrowDown className="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700" />
         </div>
       </div>
-      <div className="rounded-lg border border-slate-200 shadow-xl my-5 py-3 w-[600px]">
+      <div className="rounded-lg border border-slate-200 shadow-xl my-5 py-3 w-full 670:w-[600px]">
         <Prediction symbol={symbol} market={market} />
       </div>
     </>

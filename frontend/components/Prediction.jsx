@@ -10,7 +10,7 @@ export default function Prediction({ symbol, market }) {
   });
 
   if (isPending) {
-    return <div className="bg-white w-[600px] h-[400px]"></div>;
+    return <div className="bg-white w-full 670:w-[600px] h-[400px]"></div>;
   }
 
   if (isError) {
@@ -63,6 +63,6 @@ export default function Prediction({ symbol, market }) {
     ],
   };
   return (
-    <ReactECharts option={option} style={{ height: "400px", width: "600px" }} />
+    <ReactECharts option={option} className="w-full 670:w-[600px] h-[400px]" />
   );
 }
