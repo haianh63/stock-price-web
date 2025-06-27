@@ -47,13 +47,14 @@ if __name__ == "__main__":
     listen_market_thread = threading.Thread(target=listen_data_stream, daemon=True)
     listen_market_thread.start()
 
-    # market_thread = threading.Thread(target=get_data_stream, daemon=True)
-    market_thread = threading.Thread(target=simulate_get_data, daemon=True)
+    market_thread = threading.Thread(target=get_data_stream, daemon=True)
+    # market_thread = threading.Thread(target=simulate_get_data, daemon=True)
     market_thread.start()
 
     predictions_thread = threading.Thread(target=predictListSymbol, daemon=True, args=(symbols, markets))
     predictions_thread.start()
 
     # md_get_daily_index()
-    socketio.run(app)
+    port = int(os.environ.get("PORT", 5000))
+    socketio.run(app, host="0.0.0.0", port=port)
 	
