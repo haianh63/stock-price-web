@@ -10,6 +10,10 @@ from stock_price_api.stream import get_data_stream, simulate_get_data
 from stock_price_api.redis_config import REDIS_HOST, REDIS_PORT
 from predictions.routes import predictions, predictListSymbol
 import redis
+import os
+
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 app = Flask(__name__)
 app.register_blueprint(vnindex, url_prefix="/vnindex")
 app.register_blueprint(details, url_prefix="/details")
