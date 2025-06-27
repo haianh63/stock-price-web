@@ -12,8 +12,6 @@ from predictions.routes import predictions, predictListSymbol
 import redis
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = ""
-os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 app = Flask(__name__)
 app.register_blueprint(vnindex, url_prefix="/vnindex")
 app.register_blueprint(details, url_prefix="/details")
@@ -33,7 +31,7 @@ def listen_data_stream():
             socketio.emit('stock_update', data)
 
 @socketio.on("connect")
-def handle_connect():
+def handle_connect(auth=None):
     print("Client connected!!!")
     data = []
     keys = redis_client.keys('stock:*')
