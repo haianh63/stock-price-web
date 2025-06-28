@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { generateFakeData } from "../utils/utils";
+import mockData from "./data.json";
 import { Routes, Route } from "react-router";
 import HomePage from "../pages/HomePage";
 import StockDetailPage from "../pages/StockDetailPage";
 import { socket } from "./socket";
 import Layout from "../components/Layout";
 function App() {
-  const [data, setData] = useState(generateFakeData(30));
+  const [data, setData] = useState(mockData);
   useEffect(() => {
     function onConnect() {
       console.log("Connected to server!!!");

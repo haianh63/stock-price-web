@@ -39,7 +39,7 @@ export const splitIntradayData = (rawData) => {
 
 export const fetchVNIndex = async (timeRange) => {
   if (timeRange === "day") {
-    const result = await fetch(`${BASE_URL}/vnindex`);
+    const result = await fetch(`${BASE_URL}/vnindex/day`);
     return result.json();
   }
   if (timeRange === "week") {
