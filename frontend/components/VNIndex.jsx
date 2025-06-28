@@ -19,7 +19,7 @@ const TIME_RANGES = [
   },
 ];
 export default function VNIndex() {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(2);
   const LineChart = TIME_RANGES[current].element;
   return (
     <>
